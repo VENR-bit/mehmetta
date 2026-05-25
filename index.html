@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Non-Sleep Deep Rest-, Meditations- und Entspannungsübungen</title>
+<meta name="description" content="Meditations- und Entspannungsübungen für Geflüchtete">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700&family=Noto+Sans+Arabic:wght@300;400;600&family=Noto+Sans+Ethiopic:wght@400;600&family=Noto+Serif+Tibetan:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#3a394d;
+    --panel:#393840;
+    --ink:#ffffff;
+    --muted:rgba(255,255,255,.78);
+    --soft:rgba(255,255,255,.62);
+    --line:rgba(255,255,255,.55);
+    --line-soft:rgba(255,255,255,.22);
+    --field-line:rgba(255,255,255,.35);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:'Source Sans 3',system-ui,sans-serif;font-weight:300;
+    -webkit-font-smoothing:antialiased;line-height:1.5;}
+
+  /* ---------- Desert background ---------- */
+  .bg-wrap{position:fixed;inset:0;z-index:-2;overflow:hidden;background:var(--bg)}
+  .bg-img{
+    position:absolute;inset:-40px;width:calc(100% + 80px);height:calc(100% + 80px);
+    background-image:url('assets/desert-bg.jpg');
+    background-size:cover;background-position:center;
+    filter:blur(28px) saturate(.95) brightness(.7);
+    transform:scale(1.08);
+    opacity:.75;
+  }
+  .bg-tint{
+    position:fixed;inset:0;z-index:-1;pointer-events:none;
+    background:
+      radial-gradient(60% 70% at 50% 30%, rgba(58,57,77,.2), rgba(58,57,77,.7) 75%),
+      linear-gradient(180deg, rgba(58,57,77,.35), rgba(34,33,50,.6));
+  }
+  :lang(ar),.rtl{font-family:'Noto Sans Arabic','Source Sans 3',sans-serif;direction:rtl}
+  .ti{font-family:'Noto Sans Ethiopic','Source Sans 3',sans-serif}
+  .ts{font-family:'Noto Sans Tibetan','Noto Serif Tibetan','Source Sans 3',sans-serif}
+
+  /* hash-routing */
+  .view{display:none;min-height:100vh;padding:96px 24px 96px;justify-content:flex-start;align-items:center;flex-direction:column}
+  .view.is-active{display:flex;animation:fade .35s ease both}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+  /* =================== HOME =================== */
+  #home{padding-top:80px}
+  .container{width:100%;max-width:640px;margin:0 auto}
+
+  .logo-mark{
+    display:block;margin:0 auto 18px;width:260px;height:auto;
+    filter:drop-shadow(0 1px 2px rgba(0,0,0,.15));
+  }
+  .brand{font-weight:700;font-size:62px;letter-spacing:.5px;margin:6px 0 0;text-align:center;line-height:1.05}
+  .rule{height:1px;background:var(--line-soft);margin:32px auto;max-width:520px;width:100%}
+
+  .hero-copy{text-align:center;font-size:17px;line-height:1.6;color:var(--ink);font-weight:300}
+  .hero-copy .nsdr{display:block;letter-spacing:.16em;font-weight:400;margin-bottom:14px;font-size:15px}
+  .hero-copy p{margin:0 0 18px}
+  .hero-copy .lang{margin-top:24px}
+  .hero-copy .lang .label{display:block;color:var(--soft);font-size:14px;margin-bottom:6px;font-style:italic;font-weight:300}
+  .hero-copy .lang .text{font-size:17px;line-height:1.55}
+  .hero-copy .lang.rtl .text{font-size:19px;line-height:1.7}
+  .hero-copy .lang.ti .text{font-size:18px}
+  .hero-copy .lang.ts .text{font-size:18px;line-height:1.8}
+
+  /* Nav row */
+  .topnav{display:flex;gap:36px;justify-content:center;margin-top:48px;flex-wrap:wrap}
+  .topnav a{color:#fff;text-decoration:none;font-size:12px;letter-spacing:.32em;font-weight:600;text-transform:uppercase;padding:8px 4px;border-bottom:1px solid transparent;transition:border-color .2s,color .2s}
+  .topnav a:hover,.topnav a.is-active{border-bottom-color:#fff}
+
+  /* Newsletter card */
+  .newsletter{
+    margin:64px auto 0;width:100%;max-width:560px;
+    background:#5a5969;color:#fff;border-radius:6px;
+    padding:42px 38px;
+    box-shadow:0 22px 60px -20px rgba(0,0,0,.55),0 6px 18px rgba(0,0,0,.25);
+  }
+  .newsletter h3{font-weight:700;font-size:26px;line-height:1.35;margin:0 0 18px;letter-spacing:.2px}
+  .newsletter h3 .star{opacity:.7;margin:0 6px}
+  .newsletter p{margin:0 0 12px;font-size:15px;font-weight:300;line-height:1.55;color:rgba(255,255,255,.88)}
+  .newsletter p.rtl,.newsletter p.ti,.newsletter p.ts{font-size:16px;line-height:1.75}
+  .newsletter form{display:flex;flex-direction:column;gap:14px;margin-top:22px}
+  .field{
+    width:100%;background:transparent;color:#fff;font:inherit;font-size:15px;
+    border:1px solid var(--field-line);border-radius:3px;
+    padding:14px 16px;outline:none;transition:border-color .2s,background .2s;
+  }
+  .field::placeholder{color:rgba(255,255,255,.6);font-weight:300}
+  .field:focus{border-color:#fff;background:rgba(255,255,255,.05)}
+  textarea.field{min-height:140px;resize:vertical;font-family:inherit}
+  .btn{
+    align-self:flex-start;background:transparent;color:#fff;
+    border:1px solid var(--line);
+    padding:13px 26px;font:inherit;font-weight:600;font-size:12px;
+    letter-spacing:.32em;text-transform:uppercase;cursor:pointer;border-radius:3px;
+    transition:background .2s,border-color .2s;
+  }
+  .btn:hover{background:rgba(255,255,255,.08);border-color:#fff}
+
+  /* Download pill row */
+  .downloads-block{margin:60px auto 0;width:100%;max-width:760px;text-align:center}
+  .downloads-block .heading{font-size:18px;color:var(--ink);margin-bottom:20px;font-weight:300}
+  .pill-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .pill{
+    display:inline-flex;align-items:center;justify-content:center;
+    border:1px solid var(--line);background:transparent;color:#fff;text-decoration:none;
+    padding:10px 18px;font-size:12px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;
+    border-radius:2px;transition:background .2s,border-color .2s;min-height:40px;
+  }
+  .pill:hover{background:rgba(255,255,255,.08);border-color:#fff}
+  .pill.ar,.pill.dari,.pill.pa{font-family:'Noto Sans Arabic',sans-serif;font-size:14px;letter-spacing:.18em;direction:rtl}
+  .pill.ti{font-family:'Noto Sans Ethiopic',sans-serif;font-size:14px;letter-spacing:.18em}
+
+  /* =================== CARD VIEWS =================== */
+  .panel{
+    background:var(--panel);color:#fff;border-radius:8px;
+    padding:48px 44px;max-width:640px;width:100%;
+    box-shadow:0 22px 60px -20px rgba(0,0,0,.55),0 6px 18px rgba(0,0,0,.25);
+    position:relative;
+  }
+  .back{
+    display:inline-flex;align-items:center;gap:10px;
+    border:1px solid var(--line);background:transparent;color:#fff;
+    text-decoration:none;font-size:11px;letter-spacing:.32em;font-weight:600;
+    padding:10px 16px;border-radius:3px;cursor:pointer;text-transform:uppercase;
+    transition:background .2s,border-color .2s;
+  }
+  .back:hover{background:rgba(255,255,255,.08);border-color:#fff}
+  .panel h2{font-weight:700;font-size:34px;letter-spacing:.5px;margin:28px 0 24px}
+  .panel p{font-weight:300;font-size:16px;line-height:1.7;color:var(--muted);margin:0 0 18px;}
+  .panel p:last-child{margin-bottom:0}
+  .panel--center{text-align:center;max-width:460px}
+  .panel--center h2{margin-top:0;margin-bottom:10px}
+  .panel--center p{color:#fff;text-align:center}
+  .panel--center .back{margin-top:22px}
+
+  /* Downloads placeholder page */
+  .downloads-page h2{margin:24px 0 4px;font-size:34px;font-weight:700;text-align:center}
+  .downloads-page .note{color:var(--muted);font-size:17px;text-align:center;max-width:520px;margin:0 auto 32px;line-height:1.55}
+  .placeholder-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;max-width:640px;margin:0 auto;width:100%}
+  .placeholder-grid .tile{padding:30px 14px;border:1px dashed rgba(255,255,255,.3);border-radius:4px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:rgba(255,255,255,.62);font-size:11px;letter-spacing:.24em;text-transform:uppercase}
+  .placeholder-grid .tile .play{width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.35);display:flex;align-items:center;justify-content:center;margin-bottom:6px}
+  .placeholder-grid .tile .play svg{width:12px;height:12px}
+
+  .iconrow{display:flex;gap:14px;margin-top:24px}
+  .iconrow a{
+    width:38px;height:38px;border:1px solid var(--line);border-radius:50%;
+    display:inline-flex;align-items:center;justify-content:center;color:#fff;
+    transition:background .2s,border-color .2s;
+  }
+  .iconrow a:hover{background:rgba(255,255,255,.08);border-color:#fff}
+  .iconrow svg{width:15px;height:15px}
+
+  @media (max-width:600px){
+    .brand{font-size:46px}
+    .logo-mark{width:190px}
+    .panel{padding:34px 24px}
+    .panel h2{font-size:26px}
+    .newsletter{padding:32px 22px}
+    .newsletter h3{font-size:22px}
+    .topnav{gap:22px}
+    .pill-row{gap:10px}
+    .pill{padding:9px 14px;font-size:11px}
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-wrap"><div class="bg-img"></div></div>
+<div class="bg-tint"></div>
+
+<!-- =================== HOME =================== -->
+<main id="home" class="view" data-screen-label="01 Home">
+  <div class="container">
+    <img class="logo-mark" src="assets/mehmetta-logo.png" alt="MehMetta — calligraphic mark" />
+    <h1 class="brand">MehMetta</h1>
+    <div class="rule"></div>
+
+    <div class="hero-copy">
+      <span class="nsdr">NON-SLEEP DEEP REST</span>
+      <p>Bald findest Du hier einfache Übungen für besseren Schlaf, Konzentration und emotionale Stabilität als MP3 Datei zum gratis Herunterladen und Teilen.</p>
+
+      <div class="lang rtl">
+        <span class="label">Arabisch:</span>
+        <span class="text">قريبًا ستجد هنا تمارين استرخاء مجانية للتحميل</span>
+      </div>
+      <div class="lang rtl">
+        <span class="label">Paschtu (Pashto):</span>
+        <span class="text">ژر به دلته د آرامتیا تمرینونه د وړیا ډاونلوډ لپاره ومومئ</span>
+      </div>
+      <div class="lang">
+        <span class="label">Türkisch:</span>
+        <span class="text">Yakında burada ücretsiz olarak indirilebilecek rahatlama egzersizleri bulacaksınız</span>
+      </div>
+      <div class="lang ti">
+        <span class="label">Tigrinya:</span>
+        <span class="text">ቀርቦ ኣብዚ ነጻ ክትወርዱ ዝኽእሉ ልምምዳት ምዝናናት ክትረኽቡ ኢኹም።</span>
+      </div>
+      <div class="lang">
+        <span class="label">Somali:</span>
+        <span class="text">Dhawaan waxaad halkan ka heli doontaa jimicsiyo nasasho oo bilaash ah oo la soo degsan karo</span>
+      </div>
+      <div class="lang ts">
+        <span class="label">Tibetisch:</span>
+        <span class="text">མི་རིང་བར་ཁྱེད་ཀྱིས་འདི་ནས་ཕབ་ལེན་རང་དབང་གི་ངལ་གསོ་སྦྱོང་བརྡ་ཐབས་རྙེད་ཀྱི་རེད།</span>
+      </div>
+    </div>
+
+    <nav class="topnav" aria-label="Sekundäre Navigation">
+      <a href="#about">Über uns</a>
+      <a href="#newsletter-anchor" id="nl-link">Newsletter</a>
+      <a href="#contact">Kontakt</a>
+    </nav>
+
+    <!-- Newsletter card -->
+    <section class="newsletter" id="newsletter-anchor" aria-labelledby="nl-heading">
+      <h3 id="nl-heading">
+        Bleib auf dem Laufenden
+        <span class="star">*</span> <span dir="rtl" style="font-family:'Noto Sans Arabic'">التسجيل</span>
+        <span class="star">*</span> <span dir="rtl" style="font-family:'Noto Sans Arabic'">نوملیکنه</span>
+        <span class="star">*</span> Kayıt ol
+        <span class="star">*</span> <span class="ti">ምዝገባ</span>
+        <span class="star">*</span> Isdiiwaangeli
+        <span class="star">*</span> <span class="ts">ཐོ་འགོད།</span>
+      </h3>
+
+      <p>Gib deine E-Mail-Adresse ein, und wir geben dir Bescheid, sobald es los geht.</p>
+      <p class="rtl" dir="rtl">أدخل عنوان بريدك الإلكتروني للتسجيل</p>
+      <p class="rtl" dir="rtl">د نوملیکنې لپاره خپل برېښنالیک پته دننه کړئ</p>
+      <p>Kayıt olmak için e-posta adresini gir.</p>
+      <p class="ti">ንምዝገባ ናይ ኢ-መይል ኣድራሻኻ ኣእትው።</p>
+      <p>Geli cinwaanka iimaylkaaga si aad isu diiwaangeliso.</p>
+      <p class="ts">ཐོ་འགོད་བྱེད་པའི་ཆེད་དུ་ཁྱེད་ཀྱི་གློག་འཕྲིན་ཁ་བྱང་འཇུག་རོགས།</p>
+
+      <form id="newsletterForm" novalidate>
+        <input class="field" type="email" name="email" placeholder="Email" required />
+        <button class="btn" type="submit">Send Message</button>
+      </form>
+    </section>
+
+    <!-- Downloads pill row -->
+    <section class="downloads-block" aria-label="Download-Sprachen">
+      <p class="heading">Download here (coming soon):</p>
+      <div class="pill-row">
+        <a class="pill" href="#deutsch">Deutsch</a>
+        <a class="pill" href="#english">English</a>
+        <a class="pill ar" href="#arabisch">عربي</a>
+        <a class="pill dari" href="#dari">دری</a>
+        <a class="pill pa" href="#paschtu">پښتو</a>
+        <a class="pill ti" href="#tigrinya">ትግሪኛ</a>
+        <a class="pill" href="#somali">Soomaali</a>
+        <a class="pill" href="#kurdisch">Somalîkî</a>
+        <a class="pill" href="#ukrainisch">українська</a>
+      </div>
+    </section>
+  </div>
+</main>
+
+<!-- =================== ABOUT =================== -->
+<section id="about" class="view" data-screen-label="02 Über uns">
+  <div class="panel">
+    <a class="back" href="#">← Back</a>
+    <h2>ÜBER UNS</h2>
+    <p>MehMetta ist ein Schweizer gemeinnütziger Verein.</p>
+    <p>Unser Ziel ist es, die Konzentrationsfähigkeit, psychische Gesundheit und emotionale Selbstregulation zu stärken. Wir organisieren Meditationskurse, Schulungen und stellen einfache Meditations- und Entspannungsübungen als MP3 zum Herunterladen und Teilen gratis und ohne Registrierung zur Verfügung.</p>
+    <p>Die Inhalte werden in einfachem Deutsch, Englisch und in häufig gesprochenen Sprachen von geflüchteten Menschen angeboten.</p>
+    <p>Wir arbeiten unabhängig, politisch neutral und konfessionslos. Der Vorstand arbeitet ehrenamtlich. MehMetta verfolgt keine kommerziellen Interessen.</p>
+  </div>
+</section>
+
+<!-- =================== CONTACT =================== -->
+<section id="contact" class="view" data-screen-label="03 Kontakt">
+  <div class="panel">
+    <a class="back" href="#">← Back</a>
+    <h2>Kontakt</h2>
+    <p>Hast du Fragen zu den Übungen, einen „Sprachwunsch" oder möchtest du uns eine Rückmeldung geben, melde dich gerne bei uns.</p>
+    <p>Wir freuen uns auch an Interesse an Kooperationen, Übersetzungen oder der Nutzung der Angebote in Institutionen.</p>
+    <form id="contactForm" novalidate style="display:flex;flex-direction:column;gap:14px;margin-top:8px">
+      <input class="field" type="text"  name="name"  placeholder="Dein Name" required />
+      <input class="field" type="email" name="email" placeholder="Deine Email" required />
+      <input class="field" type="tel"   name="phone" placeholder="Deine Telefonnummer (optional)" />
+      <textarea class="field" name="message" placeholder="Nachricht" required></textarea>
+      <button class="btn" type="submit">Senden</button>
+    </form>
+    <div class="iconrow" aria-label="Weitere Kontaktmöglichkeiten">
+      <a href="tel:+0" aria-label="Anrufen">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg>
+      </a>
+      <a href="mailto:hello@mehmetta.ch" aria-label="E-Mail">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- =================== THANK YOU =================== -->
+<section id="contact-done" class="view" data-screen-label="04 Danke">
+  <div class="panel panel--center">
+    <h2>Danke</h2>
+    <p>Wir melden uns bald bei dir.</p>
+    <a class="back" href="#">← Back</a>
+  </div>
+</section>
+
+<!-- =================== DOWNLOADS (Deutsch placeholder) =================== -->
+<section id="deutsch" class="view downloads-page" data-screen-label="05 Downloads (DE)">
+  <div class="container">
+    <a class="back" href="#" style="margin-bottom:8px">← Back</a>
+    <h2>Übungen — Deutsch</h2>
+    <p class="note">Hier folgen Downloads für Meditationsübungen.</p>
+    <div class="placeholder-grid">
+      <div class="tile"><span class="play"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="6,4 22,12 6,20"/></svg></span>Atem 5 Min.</div>
+      <div class="tile"><span class="play"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="6,4 22,12 6,20"/></svg></span>Body Scan 10 Min.</div>
+      <div class="tile"><span class="play"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="6,4 22,12 6,20"/></svg></span>NSDR 15 Min.</div>
+      <div class="tile"><span class="play"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="6,4 22,12 6,20"/></svg></span>Yoga Nidra 20 Min.</div>
+      <div class="tile"><span class="play"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="6,4 22,12 6,20"/></svg></span>Schlafhilfe 25 Min.</div>
+      <div class="tile"><span class="play"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="6,4 22,12 6,20"/></svg></span>Stille 30 Min.</div>
+    </div>
+  </div>
+</section>
+
+<!-- generic placeholder for non-DE languages -->
+<section id="lang-placeholder" class="view" data-screen-label="Coming soon">
+  <div class="panel panel--center">
+    <h2 id="lp-title">Coming soon</h2>
+    <p id="lp-text">Die Übungen werden in dieser Sprache bald hier erscheinen.</p>
+    <a class="back" href="#">← Back</a>
+  </div>
+</section>
+
+<script>
+  const views = document.querySelectorAll('.view');
+  const langMap = {
+    english:    {title:'Exercises — English',  sub:'Audio exercises will be available here soon.'},
+    arabisch:   {title:'التمارين بالعربية',    sub:'ستتوفر التمارين الصوتية هنا قريباً.', rtl:true},
+    dari:       {title:'تمرینات به دری',         sub:'تمرینات صوتی به‌زودی در اینجا قرار خواهد گرفت.', rtl:true},
+    paschtu:    {title:'تمرینونه په پښتو',       sub:'صوتي تمرینونه به ډېر ژر دلته شتون ولري.', rtl:true},
+    tigrinya:   {title:'ልምምዳት ብትግርኛ',         sub:'ድምጻዊ ልምምዳት ኣብዚ ቀርቦ ክርከቡ እዮም።', ti:true},
+    somali:     {title:'Jimicsiyada Soomaali',  sub:'Jimicsiyada codka ah ayaa dhawaan halkan laga heli doonaa.'},
+    kurdisch:   {title:'Temrînên Kurmancî',     sub:'Temrînên dengî dê di demek nêz de li vir hebin.'},
+    ukrainisch: {title:'Вправи українською',    sub:'Аудіо-вправи з’являться тут найближчим часом.'},
+  };
+  function route(){
+    const hash = (location.hash || '#').replace(/^#/,'').replace(/^newsletter-anchor$/,'');
+    let target = hash || 'home';
+    let lp = null;
+    if (langMap[target]) { lp = langMap[target]; target = 'lang-placeholder'; }
+    views.forEach(v=>v.classList.toggle('is-active', v.id===target));
+    if (lp){
+      const t = document.getElementById('lp-title');
+      const s = document.getElementById('lp-text');
+      t.textContent = lp.title; s.textContent = lp.sub;
+      t.style.direction = lp.rtl ? 'rtl' : '';
+      s.style.direction = lp.rtl ? 'rtl' : '';
+      t.style.fontFamily = (lp.rtl ? "'Noto Sans Arabic',sans-serif" : (lp.ti ? "'Noto Sans Ethiopic',sans-serif" : ''));
+    }
+    // Allow scrolling to newsletter when home + newsletter-anchor
+    if (location.hash === '#newsletter-anchor'){
+      const a = document.getElementById('newsletter-anchor');
+      if (a) setTimeout(()=>a.scrollIntoView({behavior:'smooth',block:'start'}), 60);
+    } else {
+      window.scrollTo({top:0,behavior:'instant'});
+    }
+  }
+  window.addEventListener('hashchange', route);
+  document.addEventListener('DOMContentLoaded', route);
+  if (!location.hash) route();
+
+  document.getElementById('contactForm').addEventListener('submit', e=>{
+    e.preventDefault();
+    location.hash = '#contact-done';
+  });
+  document.getElementById('newsletterForm').addEventListener('submit', e=>{
+    e.preventDefault();
+    const btn = e.target.querySelector('.btn');
+    const orig = btn.textContent;
+    btn.textContent = 'Danke!';
+    btn.disabled = true;
+    e.target.querySelector('input[type=email]').value = '';
+    setTimeout(()=>{btn.textContent = orig; btn.disabled = false;}, 2400);
+  });
+</script>
+</body>
+</html>

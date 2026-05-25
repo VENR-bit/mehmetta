@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>MehMetta — Einfache Übungen für Ruhe, Konzentration und emotionale Stabilität</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700&family=Noto+Sans+Arabic:wght@400;600&family=Noto+Sans+Ethiopic:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#3a394d;            /* hero/page background */
+    --panel:#393840;         /* about / contact / thanks card */
+    --ink:#ffffff;
+    --muted:rgba(255,255,255,.78);
+    --line:rgba(255,255,255,.55);
+    --field:rgba(255,255,255,.06);
+    --field-line:rgba(255,255,255,.35);
+    --accent:#7fc6b8;        /* gentle teal echo of Carrd dashed lines */
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:'Source Sans 3',system-ui,sans-serif;-webkit-font-smoothing:antialiased;font-weight:300;}
+  body{min-height:100vh}
+
+  /* ---------- Section visibility (Carrd-style hash routing) ---------- */
+  .view{display:none;min-height:100vh;padding:88px 24px 96px;}
+  .view.is-active{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;animation:fade .35s ease both}
+  @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+  /* ---------- Home ---------- */
+  #home{padding-top:104px}
+  .hero{width:100%;max-width:640px;text-align:center}
+  .brand{font-weight:700;font-size:64px;letter-spacing:.5px;margin:0 0 14px;line-height:1.05}
+  .tagline{font-weight:300;font-size:20px;color:var(--muted);margin:0 auto;max-width:520px;line-height:1.5}
+  .divider{height:1px;background:rgba(255,255,255,.22);margin:40px auto 36px;max-width:520px}
+  .coming{font-weight:300;font-size:18px;color:var(--muted);margin:0 0 28px;text-align:center;letter-spacing:.2px}
+
+  .lang-list{display:flex;flex-direction:column;gap:18px;max-width:520px;margin:0 auto;width:100%}
+  .lang-btn{
+    display:flex;align-items:center;justify-content:center;
+    border:1px solid var(--line);
+    background:transparent;color:var(--ink);
+    padding:18px 24px;font:inherit;font-size:13px;font-weight:600;
+    letter-spacing:.32em;text-transform:uppercase;cursor:pointer;
+    border-radius:2px;text-decoration:none;
+    transition:background .2s ease,border-color .2s ease,transform .2s ease;
+    min-height:58px;
+  }
+  .lang-btn:hover{background:rgba(255,255,255,.06);border-color:#fff}
+  .lang-btn:active{transform:scale(.99)}
+  .lang-btn .native{font-family:'Noto Sans Arabic','Noto Sans Ethiopic','Source Sans 3',sans-serif;letter-spacing:.06em;font-weight:600;margin-right:.5em;font-size:16px}
+  .lang-btn[dir="rtl"] .native{margin-right:0;margin-left:.5em}
+  .lang-btn .label{letter-spacing:.32em;font-size:13px;opacity:.9}
+
+  /* ---------- Footer-style nav ---------- */
+  .footnav{display:flex;gap:32px;justify-content:center;margin-top:64px;flex-wrap:wrap}
+  .footnav a{color:var(--muted);text-decoration:none;font-size:12px;letter-spacing:.32em;font-weight:600;text-transform:uppercase;padding:6px 4px;border-bottom:1px solid transparent;transition:color .2s,border-color .2s}
+  .footnav a:hover{color:#fff;border-bottom-color:rgba(255,255,255,.4)}
+
+  /* ---------- Card panels (about / contact / thanks) ---------- */
+  .panel{
+    background:var(--panel);color:#fff;border-radius:8px;
+    padding:48px 44px;max-width:640px;width:100%;
+    box-shadow:0 22px 60px -20px rgba(0,0,0,.55),0 6px 18px rgba(0,0,0,.25);
+    position:relative;
+  }
+  .back{
+    display:inline-flex;align-items:center;gap:10px;
+    border:1px solid var(--line);background:transparent;color:#fff;
+    text-decoration:none;font-size:11px;letter-spacing:.32em;font-weight:600;
+    padding:10px 16px;border-radius:3px;cursor:pointer;text-transform:uppercase;
+    transition:background .2s,border-color .2s;
+  }
+  .back:hover{background:rgba(255,255,255,.06);border-color:#fff}
+  .panel h2{font-weight:700;font-size:34px;letter-spacing:.5px;margin:28px 0 24px}
+  .panel p{font-weight:300;font-size:16px;line-height:1.65;color:var(--muted);margin:0 0 18px;text-align:justify;}
+  .panel p:last-child{margin-bottom:0}
+
+  /* ---------- Contact form ---------- */
+  .form{display:flex;flex-direction:column;gap:14px;margin-top:6px}
+  .field{
+    width:100%;background:transparent;color:#fff;font:inherit;font-size:15px;
+    border:1px solid var(--field-line);border-radius:3px;
+    padding:14px 16px;outline:none;transition:border-color .2s,background .2s;
+  }
+  .field::placeholder{color:rgba(255,255,255,.55);font-weight:300}
+  .field:focus{border-color:#fff;background:rgba(255,255,255,.04)}
+  textarea.field{min-height:160px;resize:vertical;font-family:inherit}
+  .submit{
+    align-self:flex-start;margin-top:10px;
+    background:transparent;color:#fff;
+    border:1px solid var(--line);
+    padding:14px 26px;font:inherit;font-weight:600;font-size:12px;
+    letter-spacing:.32em;text-transform:uppercase;cursor:pointer;border-radius:3px;
+    transition:background .2s,border-color .2s;
+  }
+  .submit:hover{background:rgba(255,255,255,.06);border-color:#fff}
+
+  .iconrow{display:flex;gap:14px;margin-top:22px}
+  .iconrow a{
+    width:36px;height:36px;border:1px solid var(--line);border-radius:50%;
+    display:inline-flex;align-items:center;justify-content:center;color:#fff;
+    transition:background .2s,border-color .2s;
+  }
+  .iconrow a:hover{background:rgba(255,255,255,.06);border-color:#fff}
+  .iconrow svg{width:14px;height:14px}
+
+  /* ---------- Thank you / Downloads ---------- */
+  .panel--center{text-align:center}
+  .panel--center h2{margin-top:0;margin-bottom:10px}
+  .panel--center p{text-align:center;color:#fff;font-weight:300}
+  .panel--center .back{margin-top:22px}
+
+  .downloads-note{font-weight:300;color:var(--muted);font-size:18px;text-align:center;max-width:520px;margin:40px auto 32px;line-height:1.55}
+  .placeholder-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;max-width:640px;margin:0 auto;width:100%}
+  .placeholder-grid .tile{aspect-ratio:1.7/1;border:1px dashed rgba(255,255,255,.3);border-radius:4px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.5);font-size:11px;letter-spacing:.3em;text-transform:uppercase}
+
+  /* ---------- Top corner mini-nav (hash badge like Carrd preview) ---------- */
+  .toplink{position:fixed;top:18px;left:20px;color:rgba(255,255,255,.55);font-size:11px;letter-spacing:.32em;text-transform:uppercase;text-decoration:none;font-weight:600}
+  .toplink:hover{color:#fff}
+
+  @media (max-width:560px){
+    .brand{font-size:46px}
+    .tagline{font-size:17px}
+    .panel{padding:36px 26px}
+    .panel h2{font-size:28px}
+    .lang-btn{padding:16px 18px}
+    .footnav{gap:18px}
+  }
+</style>
+</head>
+<body>
+
+<a class="toplink" href="#" aria-label="MehMetta home">MehMetta</a>
+
+<!-- =================== HOME =================== -->
+<main id="home" class="view" data-screen-label="01 Home">
+  <section class="hero">
+    <h1 class="brand">MehMetta</h1>
+    <p class="tagline">Einfache Übungen für Ruhe, Konzentration und emotionale Stabilität</p>
+    <div class="divider"></div>
+    <p class="coming">Bald verfügbar:</p>
+
+    <div class="lang-list">
+      <a class="lang-btn" href="#deutsch">
+        <span class="label">Zu den Übungen (Deutsch)</span>
+      </a>
+      <a class="lang-btn" dir="rtl" href="#arabic">
+        <span class="native">إلى التمارين</span>
+        <span class="label">(Arabisch)</span>
+      </a>
+      <a class="lang-btn" dir="rtl" href="#dari">
+        <span class="native">به تمرینات</span>
+        <span class="label">(Dari)</span>
+      </a>
+      <a class="lang-btn" dir="rtl" href="#paschtu">
+        <span class="native">ته تمرینونو</span>
+        <span class="label">(Paschtu)</span>
+      </a>
+      <a class="lang-btn" href="#tigrinya">
+        <span class="native">ናብ ልምምዳት</span>
+        <span class="label">(Tigrinya)</span>
+      </a>
+      <a class="lang-btn" href="#somali">
+        <span class="label">Jimicsiyada (Somali)</span>
+      </a>
+      <a class="lang-btn" href="#kurmanci">
+        <span class="label">Bo Tetbîqatan (Kurmancî)</span>
+      </a>
+      <a class="lang-btn" href="#ukrainisch">
+        <span class="label">До вправ (Ukrainisch)</span>
+      </a>
+      <a class="lang-btn" href="#english">
+        <span class="label">To the exercises (English)</span>
+      </a>
+    </div>
+
+    <nav class="footnav" aria-label="Sekundäre Navigation">
+      <a href="#about">Über uns</a>
+      <a href="#contact">Kontakt</a>
+    </nav>
+  </section>
+</main>
+
+<!-- =================== ABOUT =================== -->
+<section id="about" class="view" data-screen-label="02 Über uns">
+  <div class="panel">
+    <a class="back" href="#">← Back</a>
+    <h2>ÜBER UNS</h2>
+    <p>MehMetta ist ein gemeinnütziger Verein. Unser Ziel ist es, die Konzentrationsfähigkeit, psychische Gesundheit und emotionale Selbstregulation zu stärken. Wir stellen einfache Meditations- und Entspannungsübungen kostenlos zur Verfügung.</p>
+    <p>Die Inhalte werden in einfachem Deutsch und in häufig gesprochenen Sprachen von geflüchteten Menschen angeboten. Alle Angebote sind kostenlos und ohne Anmeldung zugänglich.</p>
+    <p>Wir arbeiten unabhängig, politisch neutral und konfessionslos. Der Vorstand arbeitet ehrenamtlich. MehMetta verfolgt keine kommerziellen Interessen.</p>
+  </div>
+</section>
+
+<!-- =================== CONTACT =================== -->
+<section id="contact" class="view" data-screen-label="03 Kontakt">
+  <div class="panel">
+    <a class="back" href="#">← Back</a>
+    <h2>Contact Us</h2>
+    <p>Hast du Fragen zu den Übungen, einen Sprachwunsch oder möchtest du uns eine Rückmeldung geben — melde dich gerne bei uns.</p>
+    <form class="form" id="contactForm" novalidate>
+      <input class="field" type="text" name="name" placeholder="Name" required />
+      <input class="field" type="email" name="email" placeholder="Email" required />
+      <textarea class="field" name="message" placeholder="Message" required></textarea>
+      <button class="submit" type="submit">Send Message</button>
+    </form>
+    <div class="iconrow" aria-label="Weitere Kontaktmöglichkeiten">
+      <a href="tel:+0" aria-label="Anrufen">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/></svg>
+      </a>
+      <a href="mailto:hello@mehmetta.org" aria-label="E-Mail">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- =================== THANK YOU =================== -->
+<section id="contact-done" class="view" data-screen-label="04 Danke">
+  <div class="panel panel--center" style="max-width:440px">
+    <h2>Thank You</h2>
+    <p>Wir melden uns bald bei dir.</p>
+    <a class="back" href="#">← Back</a>
+  </div>
+</section>
+
+<!-- =================== DOWNLOADS PLACEHOLDER =================== -->
+<section id="deutsch" class="view" data-screen-label="05 Downloads (DE)">
+  <div style="max-width:640px;width:100%;text-align:center">
+    <a class="back" href="#" style="margin-bottom:24px">← Back</a>
+    <h2 style="font-weight:700;font-size:34px;margin:24px 0 6px">Übungen — Deutsch</h2>
+    <p class="downloads-note">Hier folgen Downloads für Meditationsübungen.</p>
+    <div class="placeholder-grid">
+      <div class="tile">Übung 01</div>
+      <div class="tile">Übung 02</div>
+      <div class="tile">Übung 03</div>
+      <div class="tile">Übung 04</div>
+      <div class="tile">Übung 05</div>
+      <div class="tile">Übung 06</div>
+    </div>
+  </div>
+</section>
+
+<!-- generic placeholder for non-DE languages -->
+<section id="lang-placeholder" class="view" data-screen-label="Coming soon">
+  <div class="panel panel--center" style="max-width:480px">
+    <h2 id="lp-title">Coming soon</h2>
+    <p id="lp-text">Die Übungen werden in dieser Sprache bald hier erscheinen.</p>
+    <a class="back" href="#">← Back</a>
+  </div>
+</section>
+
+<script>
+  // Hash-based section routing
+  const views = document.querySelectorAll('.view');
+  const langMap = {
+    arabic:    {title:'إلى التمارين',  sub:'Die Übungen erscheinen bald auf Arabisch.'},
+    dari:      {title:'به تمرینات',     sub:'Die Übungen erscheinen bald auf Dari.'},
+    paschtu:   {title:'ته تمرینونو',    sub:'Die Übungen erscheinen bald auf Paschtu.'},
+    tigrinya:  {title:'ናብ ልምምዳት',     sub:'Die Übungen erscheinen bald auf Tigrinya.'},
+    somali:    {title:'Jimicsiyada',   sub:'Die Übungen erscheinen bald auf Somali.'},
+    kurmanci:  {title:'Bo Tetbîqatan', sub:'Die Übungen erscheinen bald auf Kurmancî.'},
+    ukrainisch:{title:'До вправ',       sub:'Die Übungen erscheinen bald auf Ukrainisch.'},
+    english:   {title:'To the exercises', sub:'The exercises will appear here soon.'},
+  };
+  function route(){
+    const hash = (location.hash || '#').replace(/^#/,'');
+    let target = hash || 'home';
+    let lp = null;
+    if (langMap[target]) { lp = langMap[target]; target = 'lang-placeholder'; }
+    views.forEach(v=>v.classList.toggle('is-active', v.id===target));
+    if (lp){
+      document.getElementById('lp-title').textContent = lp.title;
+      document.getElementById('lp-text').textContent  = lp.sub;
+    }
+    window.scrollTo({top:0,behavior:'instant'});
+  }
+  window.addEventListener('hashchange', route);
+  document.addEventListener('DOMContentLoaded', route);
+  // default
+  if (!location.hash) route();
+
+  // Contact form fake submit -> thank-you
+  document.getElementById('contactForm').addEventListener('submit', e=>{
+    e.preventDefault();
+    location.hash = '#contact-done';
+  });
+</script>
+</body>
+</html>
