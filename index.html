@@ -20,25 +20,31 @@
     --field-line:rgba(255,255,255,.35);
   }
   *{box-sizing:border-box}
-  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+  html,body{margin:0;padding:0;background:#5a5550;color:var(--ink);
     font-family:'Source Sans 3',system-ui,sans-serif;font-weight:300;
     -webkit-font-smoothing:antialiased;line-height:1.5;}
 
   /* ---------- Desert background ---------- */
-  .bg-wrap{position:fixed;inset:0;z-index:-2;overflow:hidden;background:var(--bg)}
+  .bg-wrap{position:fixed;inset:0;z-index:-2;overflow:hidden;background:#45403a}
   .bg-img{
-    position:absolute;inset:-40px;width:calc(100% + 80px);height:calc(100% + 80px);
+    position:absolute;inset:-30px;width:calc(100% + 60px);height:calc(100% + 60px);
     background-image:url('assets/desert-bg.jpg');
-    background-size:cover;background-position:center;
-    filter:blur(28px) saturate(.95) brightness(.7);
-    transform:scale(1.08);
-    opacity:.75;
+    background-size:cover;background-position:center 40%;
+    filter:blur(4px) saturate(1.2) brightness(1.25);
+    transform:scale(1.06);
+    opacity:1;
   }
   .bg-tint{
     position:fixed;inset:0;z-index:-1;pointer-events:none;
-    background:
-      radial-gradient(60% 70% at 50% 30%, rgba(58,57,77,.2), rgba(58,57,77,.7) 75%),
-      linear-gradient(180deg, rgba(58,57,77,.35), rgba(34,33,50,.6));
+    background:linear-gradient(to top, rgba(67,66,89,0.2), rgba(67,66,89,0.2));
+  }
+  /* ---------- Noise / grain overlay ---------- */
+  .bg-noise{
+    position:fixed;inset:0;z-index:0;pointer-events:none;
+    background-image:url("data:image/svg+xml;charset=utf8,%3Csvg%20viewBox%3D%220%200%20512%20512%22%20width%3D%22512%22%20height%3D%22512%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cfilter%20id%3D%22n%22%3E%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%220.875%22%20result%3D%22noise%22%2F%3E%3CfeColorMatrix%20type%3D%22matrix%22%20values%3D%220%200%200%200%200%200%200%200%200%200%200%200%200%200%200%200%200%200%200.5%200%22%2F%3E%3C%2Ffilter%3E%3Crect%20filter%3D%22url(%23n)%22%20width%3D%22512%22%20height%3D%22512%22%20fill%3D%22transparent%22%2F%3E%3C%2Fsvg%3E");
+    background-size:512px;
+    background-repeat:repeat;
+    opacity:1;
   }
   :lang(ar),.rtl{font-family:'Noto Sans Arabic','Source Sans 3',sans-serif;direction:rtl}
   .ti{font-family:'Noto Sans Ethiopic','Source Sans 3',sans-serif}
@@ -175,6 +181,7 @@
 
 <div class="bg-wrap"><div class="bg-img"></div></div>
 <div class="bg-tint"></div>
+<div class="bg-noise"></div>
 
 <!-- =================== HOME =================== -->
 <main id="home" class="view" data-screen-label="01 Home">
