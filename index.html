@@ -155,6 +155,28 @@
   .placeholder-grid .tile .play{width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.35);display:flex;align-items:center;justify-content:center;margin-bottom:6px}
   .placeholder-grid .tile .play svg{width:12px;height:12px}
 
+  /* =================== AUDIO TRACK CARD =================== */
+  .track-list{display:flex;flex-direction:column;gap:18px;max-width:640px;margin:0 auto;width:100%}
+  .track{
+    background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);
+    border-radius:6px;padding:22px 24px;transition:border-color .2s,background .2s;
+  }
+  .track:hover{border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.09)}
+  .track-title{font-weight:600;font-size:16px;margin:0 0 4px;color:#fff;letter-spacing:.3px}
+  .track-meta{font-size:13px;color:var(--soft);margin:0 0 14px;font-weight:300}
+  .track audio{width:100%;height:40px;border-radius:20px;outline:none}
+  .track audio::-webkit-media-controls-panel{background:rgba(255,255,255,.08);border-radius:20px}
+  .track-actions{display:flex;gap:12px;margin-top:12px;align-items:center}
+  .track-dl{
+    display:inline-flex;align-items:center;gap:6px;
+    font-size:11px;letter-spacing:.24em;text-transform:uppercase;font-weight:600;
+    color:var(--muted);text-decoration:none;padding:6px 14px;
+    border:1px solid rgba(255,255,255,.2);border-radius:3px;
+    transition:background .2s,border-color .2s,color .2s;
+  }
+  .track-dl:hover{background:rgba(255,255,255,.08);border-color:#fff;color:#fff}
+  .track-dl svg{width:13px;height:13px}
+
   .iconrow{display:flex;gap:14px;margin-top:24px}
   .iconrow a{
     width:38px;height:38px;border:1px solid var(--line);border-radius:50%;
@@ -333,6 +355,30 @@
   </div>
 </section>
 
+<!-- =================== DOWNLOADS (English) =================== -->
+<section id="english" class="view downloads-page" data-screen-label="06 Downloads (EN)">
+  <div class="container">
+    <a class="back" href="#" style="margin-bottom:8px">&#8592; Back</a>
+    <h2>Exercises — English</h2>
+    <p class="note">Listen online or download the MP3 to practice offline.</p>
+    <div class="track-list">
+      <div class="track">
+        <p class="track-title">Yoga Nidra</p>
+        <p class="track-meta">20 min &middot; Guided relaxation</p>
+        <audio controls preload="metadata"
+               src="https://mehmetta-audio.ven-homagamarewatha.workers.dev/YogaNidraEnglish.mp3">
+        </audio>
+        <div class="track-actions">
+          <a class="track-dl" href="https://mehmetta-audio.ven-homagamarewatha.workers.dev/YogaNidraEnglish.mp3" download="YogaNidra-English-MehMetta.mp3">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Download MP3
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- generic placeholder for non-DE languages -->
 <section id="lang-placeholder" class="view" data-screen-label="Coming soon">
   <div class="panel panel--center">
@@ -345,7 +391,6 @@
 <script>
   const views = document.querySelectorAll('.view');
   const langMap = {
-    english:    {title:'Exercises — English',  sub:'Audio exercises will be available here soon.'},
     arabisch:   {title:'التمارين بالعربية',    sub:'ستتوفر التمارين الصوتية هنا قريباً.', rtl:true},
     dari:       {title:'تمرینات به دری',         sub:'تمرینات صوتی به‌زودی در اینجا قرار خواهد گرفت.', rtl:true},
     paschtu:    {title:'تمرینونه په پښتو',       sub:'صوتي تمرینونه به ډېر ژر دلته شتون ولري.', rtl:true},
